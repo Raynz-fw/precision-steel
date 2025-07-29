@@ -4,33 +4,20 @@ const path = require('path');
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Middleware untuk file statis
-app.use(express.static(path.join(__dirname)));
+// Middleware: sajikan file statis dari direktori saat ini
+app.use(express.static(__dirname));
 
-// Route untuk homepage
+// Route utama ke file HTML
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'precison-steel.html'));
+  res.sendFile(path.join(__dirname, 'precision-steel.html'));
 });
 
-// Handle semua route untuk SPA (Single Page Application)
+// Fallback untuk SPA / rute lain
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'precison-steel.html'));
+  res.sendFile(path.join(__dirname, 'precision-steel.html'));
 });
 
-// Start server
+// Jalankan server
 app.listen(port, () => {
-  console.log(`
-  ======================================================
-  🚀 Server berjalan di http://localhost:${port}
-  ======================================================
-  Tekan Ctrl+C untuk menghentikan server
-  `);
-  
-  // Pesan troubleshooting
-  console.log(`
-  Jika terjadi error, pastikan:
-  1. Telah menjalankan: npm install express
-  2. File precison-steel.html ada di direktori yang sama
-  3. Tidak ada aplikasi lain yang menggunakan port ${port}
-  `);
+  console.log(`🚀 Server berjalan di http://localhost:${port}`);
 });
